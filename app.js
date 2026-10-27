@@ -8,7 +8,7 @@ export function safeURL(value) {
 const e = escapeHTML;
 let data;
 const arrow = '<span aria-hidden="true">↗</span>';
-const logo = '<span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
+const logo = '<img class="brand-logo" src="./assets/th-game-logo-v2.png" alt="TH Game — Chơi vui, khơi trí sáng tạo" width="260" height="104">';
 const art = '<div class="play-art"><img src="./assets/play-lab.svg" width="560" height="480" alt="" aria-hidden="true"><span class="art-note">Một chút tò mò, thật nhiều điều hay!</span></div>';
 
 function nav() {
@@ -72,7 +72,7 @@ function render() {
       document.title = (p?.title || 'Trang chưa công bố') + ' · ' + data.settings.name;
     } else body = home();
   } catch { body = missing(); }
-  document.querySelector('#app').innerHTML = `<div class="top-note">Một góc nhỏ cho những trí tò mò lớn. <span aria-hidden="true">✦</span></div><header class="wrap"><a class="brand" href="#">${logo}<span>${e(data.settings.name)}<small>CHƠI · HỌC · KHÁM PHÁ</small></span></a><nav aria-label="Menu chính">${nav()}</nav><a class="header-cta" href="#games">Cùng chơi nào ${arrow}</a></header><main>${body}</main><footer><div class="footer-top wrap"><div><a class="brand" href="#">${logo}<span>${e(data.settings.name)}<small>CHƠI · HỌC · KHÁM PHÁ</small></span></a><p>Từ niềm vui chơi, khơi mở những điều hay.</p></div><div class="footer-links"><a href="#games">Khám phá game</a><a href="#/page/about">Về TH Game</a>${data.pages.filter(p => p.published && p.id !== 'about').map(p => `<a href="#/page/${encodeURIComponent(p.id)}">${e(p.title)}</a>`).join('')}${data.settings.email ? `<a href="mailto:${e(data.settings.email)}">Liên hệ ${arrow}</a>` : ''}</div></div><div class="footer-bottom wrap"><span>© ${new Date().getFullYear()} ${e(data.settings.name)}. Một góc sáng tạo cá nhân.</span><a href="./admin/">Quản trị ${arrow}</a></div></footer>`;
+  document.querySelector('#app').innerHTML = `<div class="top-note">Một góc nhỏ cho những trí tò mò lớn. <span aria-hidden="true">✦</span></div><header class="wrap"><a class="brand" href="#">${logo}</a><nav aria-label="Menu chính">${nav()}</nav><a class="header-cta" href="#games">Cùng chơi nào ${arrow}</a></header><main>${body}</main><footer><div class="footer-top wrap"><div><a class="brand" href="#">${logo}</a><p>Từ niềm vui chơi, khơi mở những điều hay.</p></div><div class="footer-links"><a href="#games">Khám phá game</a><a href="#/page/about">Về TH Game</a>${data.pages.filter(p => p.published && p.id !== 'about').map(p => `<a href="#/page/${encodeURIComponent(p.id)}">${e(p.title)}</a>`).join('')}${data.settings.email ? `<a href="mailto:${e(data.settings.email)}">Liên hệ ${arrow}</a>` : ''}</div></div><div class="footer-bottom wrap"><span>© ${new Date().getFullYear()} ${e(data.settings.name)}. Một góc sáng tạo cá nhân.</span><a href="./admin/">Quản trị ${arrow}</a></div></footer>`;
   if (route === '#games') requestAnimationFrame(() => document.querySelector('#games')?.scrollIntoView());
   else window.scrollTo(0, 0);
 }
