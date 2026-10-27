@@ -2,8 +2,3 @@ dist/
 node_modules/
 .env
 .env.*
-private-dist/
-.wrangler/
-.dev.vars
-.dev.vars.*
-tmp/
