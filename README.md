@@ -51,20 +51,13 @@ Tài liệu chính thức: https://docs.github.com/en/pages/configuring-a-custom
 
 Nếu dùng nhánh khác `main`, đổi nhánh trong `.github/workflows/pages.yml` và khi kết nối admin. Trước khi bật custom domain, trang dự án hoạt động tại `<username>.github.io/<repo>/`. Tên thương hiệu hiển thị vẫn là TH Game; tên miền được cấu hình là thgame.vn theo yêu cầu mới nhất.
 
-## Kết nối admin và cập nhật
+## Admin authentication
 
-1. GitHub → Settings cá nhân → Developer settings → Personal access tokens → Fine-grained tokens.
-2. Tạo token có hạn dùng, chỉ chọn repository website, cấp **Contents: Read and write**. Token không cần quyền quản lý tài khoản hay workflow. Nếu repository thuộc tổ chức, có thể cần tổ chức phê duyệt token.
-3. Mở `https://thgame.vn/admin/`, nhập owner, repository, nhánh `main` và token. Không gửi token qua chat. Token chỉ giữ trong biến bộ nhớ của tab; tải lại/đăng xuất sẽ xóa khỏi phiên.
-4. Trong Cài đặt, lưu owner/repository/nhánh để lần sau được điền gợi ý.
-5. Thêm game: slug duy nhất, tiêu đề, ảnh HTTPS, giới thiệu, các link tải và link Privacy Policy. Đánh dấu Công bố. QR tự trỏ đến link Google Play, nếu không có thì App Store, rồi link tải khác.
-6. Thêm trang: slug, tiêu đề và văn bản. Đánh dấu Công bố; thêm menu với URL `/#/page/slug`. Trang được công bố cũng xuất hiện ở footer. Nội dung văn bản thuần, không thực thi HTML.
-7. Thêm menu: đặt mã, tên, liên kết; chọn menu cha nếu là menu con. Hỗ trợ hai cấp; nút ↑ ↓ thay đổi thứ tự. Menu cha có con sẽ mở danh sách con.
-8. Bấm **Áp dụng thay đổi**, sau đó **Lưu & xuất bản**. Admin ghi `content.json` qua GitHub Contents API; workflow deploy lại. Theo dõi Actions nếu website chưa cập nhật. Các thay đổi chưa bấm Áp dụng vẫn nằm trong form, chưa đưa vào bản xuất bản.
+The public website has no admin link. The editor is no longer included in the GitHub Pages artifact. Until the Cloudflare authentication service is configured, /admin shows a locked setup page.
 
-Admin tải bản mới nhất khi kết nối, kiểm tra SHA trước khi ghi và không ghi đè nếu người khác vừa cập nhật. Khi xung đột: xuất JSON dự phòng, tải lại, kết nối lại và nhập lại phần thay đổi cần giữ. Khôi phục từ JSON bằng cách thay file `content.json` trong GitHub. Có thể phục hồi bằng lịch sử commit của file.
+GitHub sign-in is restricted on the server to thinh1808 (numeric ID 22042427), followed by explicit confirmation. Content updates use a repository-scoped token held only as a Worker secret. See [deployment setup](docs/admin-auth.md) for required Cloudflare and GitHub OAuth setup and the private admin build.
 
-Nút **Xem thử admin** dùng nội dung trong tab; không lưu công khai. Nút xuất JSON giúp giữ bản sửa thử. Admin là giao diện công khai nhưng mọi thao tác ghi thật được GitHub xác thực bằng token có quyền repository. Không có mật khẩu giả hoặc token nhúng trong source.
+The original local preview command serves the public site only. npm run build:admin builds the editor separately for the authenticated Worker; serving that directory locally without the Worker does not implement login.
 
 ## Nội dung và dịch vụ bên ngoài
 
