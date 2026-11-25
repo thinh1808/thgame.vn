@@ -20,7 +20,7 @@ function nav() {
 }
 
 function card(g, index) {
-  return `<a class="game-card tone-${index % 3}" href="#/game/${encodeURIComponent(g.id)}">
+  return `<a class="game-card tone-${index % 3}" href="./${encodeURIComponent(g.id)}/">
     <div class="cover"><span class="card-number">${String(index + 1).padStart(2, '0')} / KHÁM PHÁ</span><span class="cover-doodle" aria-hidden="true">${['✳', '↗', '✦'][index % 3]}</span>${safeURL(g.image) ? `<img src="${e(safeURL(g.image))}" alt="Biểu tượng ${e(g.title)}" width="144" height="144" loading="lazy">` : '<span class="cover-placeholder" aria-hidden="true">✧</span>'}<span class="platform"><i></i>${e(g.platform || 'Game')}</span></div>
     <div class="card-body"><span class="game-category">${e(g.category || 'Khám phá & học hỏi')}</span><h3>${e(g.title)}</h3><p>${e(g.description)}</p><div class="card-bottom"><span>Khám phá game</span><span class="round-arrow" aria-hidden="true">↗</span></div></div>
   </a>`;
