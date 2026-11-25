@@ -13,5 +13,6 @@
 | Ôn thi GPLX ô tô B2 | https://play.google.com/store/apps/details?id=vn.dasatech.gplx.b2 | Chưa xác minh được |
 | Ôn thi GPLX A1 | https://play.google.com/store/apps/details?id=vn.dasatech.gplx.a1 | Chưa xác minh được |
 
-Icon và ảnh chụp màn hình trong content.json lấy từ hình ảnh công khai trên từng trang Google Play. Link Chess King do chủ website cung cấp. Chưa kiểm tra nội dung hoặc chỉnh sửa các chính sách ở nguồn bên ngoài.
-Chỉ liên kết chính sách quyền riêng tư đã xác minh được; chưa sao chép hoặc tự tạo nội dung chính sách cho Egg Catching và các ứng dụng GPLX.
+Icon và ảnh chụp màn hình trong content.json lấy từ hình ảnh công khai trên từng trang Google Play. Link Chess King do chủ website cung cấp.
+
+Website hiện lưu chính sách riêng tại `/appname/private.html` và `/appname/private/` cho từng game. Nội dung được diễn đạt lại từ các chính sách có liên kết ở bảng trên; email và website liên hệ trong bản trên website là `support@thgame.vn` và `https://thgame.vn`. Egg Catching và hai ứng dụng GPLX chưa có trang Privacy Policy riêng xác minh được trên Google Play; các trang tương ứng trên website được soạn từ thông tin mô tả và mục An toàn dữ liệu hiện có trên Google Play, cần chủ ứng dụng xác nhận khớp với hành vi thực tế.
