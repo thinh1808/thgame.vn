@@ -13,5 +13,5 @@
 | Ôn thi GPLX ô tô B2 | https://play.google.com/store/apps/details?id=vn.dasatech.gplx.b2 | Chưa xác minh được |
 | Ôn thi GPLX A1 | https://play.google.com/store/apps/details?id=vn.dasatech.gplx.a1 | Chưa xác minh được |
 
-Ảnh trong content.json lấy từ metadata og:image của từng trang Google Play. Link Chess King do chủ website cung cấp. Chưa kiểm tra nội dung hoặc chỉnh sửa các chính sách ở nguồn bên ngoài.
-Các game mới dùng ảnh xem trước từ Google Play. Chỉ liên kết chính sách quyền riêng tư đã xác minh được; chưa sao chép hoặc tự tạo nội dung chính sách cho Egg Catching và các ứng dụng GPLX.
+Icon và ảnh chụp màn hình trong content.json lấy từ hình ảnh công khai trên từng trang Google Play. Link Chess King do chủ website cung cấp. Chưa kiểm tra nội dung hoặc chỉnh sửa các chính sách ở nguồn bên ngoài.
+Chỉ liên kết chính sách quyền riêng tư đã xác minh được; chưa sao chép hoặc tự tạo nội dung chính sách cho Egg Catching và các ứng dụng GPLX.

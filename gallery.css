@@ -1,0 +1,10 @@
+.screenshot-gallery{margin-top:52px}
+.screenshot-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}
+.screenshot-heading h2{font-size:27px;margin:8px 0 0}
+.screenshot-controls{display:flex;gap:8px}
+.screenshot-controls button{width:42px;height:42px;padding:0;font-size:20px}
+.screenshot-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-color:#A9BED6 transparent;padding:4px 2px 16px}
+.screenshot-slide{min-width:0;margin:0;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#fff;scroll-snap-align:start}
+.screenshot-slide img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--mint)}
+@media(max-width:760px){.screenshot-gallery{margin-top:38px}.screenshot-track{grid-auto-columns:calc((100% - 16px)/2)}}
+@media(max-width:480px){.screenshot-heading h2{font-size:22px}.screenshot-controls button{width:38px;height:38px}.screenshot-track{grid-auto-columns:88%}}

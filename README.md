@@ -57,7 +57,7 @@ Nếu dùng nhánh khác `main`, đổi nhánh trong `.github/workflows/pages.ym
 2. Tạo token có hạn dùng, chỉ chọn repository website, cấp **Contents: Read and write**. Token không cần quyền quản lý tài khoản hay workflow. Nếu repository thuộc tổ chức, có thể cần tổ chức phê duyệt token.
 3. Mở `https://thgame.vn/admin/`, nhập owner, repository, nhánh `main` và token. Không gửi token qua chat. Token chỉ giữ trong biến bộ nhớ của tab; tải lại/đăng xuất sẽ xóa khỏi phiên.
 4. Trong Cài đặt, lưu owner/repository/nhánh để lần sau được điền gợi ý.
-5. Thêm game: slug duy nhất, tiêu đề, ảnh HTTPS, giới thiệu, các link tải và link Privacy Policy. Đánh dấu Công bố. QR tự trỏ đến link Google Play, nếu không có thì App Store, rồi link tải khác.
+5. Thêm game: slug duy nhất, tiêu đề, URL icon HTTPS, ảnh chụp màn hình (mỗi URL một dòng), giới thiệu, các link tải và link Privacy Policy. Đánh dấu Công bố. QR tự trỏ đến link Google Play, nếu không có thì App Store, rồi link tải khác.
 6. Thêm trang: slug, tiêu đề và văn bản. Đánh dấu Công bố; thêm menu với URL `/#/page/slug`. Trang được công bố cũng xuất hiện ở footer. Nội dung văn bản thuần, không thực thi HTML.
 7. Thêm menu: đặt mã, tên, liên kết; chọn menu cha nếu là menu con. Hỗ trợ hai cấp; nút ↑ ↓ thay đổi thứ tự. Menu cha có con sẽ mở danh sách con.
 8. Bấm **Áp dụng thay đổi**, sau đó **Lưu & xuất bản**. Admin ghi `content.json` qua GitHub Contents API; workflow deploy lại. Theo dõi Actions nếu website chưa cập nhật. Các thay đổi chưa bấm Áp dụng vẫn nằm trong form, chưa đưa vào bản xuất bản.
@@ -70,8 +70,9 @@ Nút **Xem thử admin** dùng nội dung trong tab; không lưu công khai. Nú
 
 - Đã nhập Sudoku Arena, Rolling Ball và Chess King: 9 Board Games từ các trang Google Play của TH-GAME. Ảnh dùng URL Google Play; có thể thay đổi trong admin. QR dẫn đến trang tải chính thức. Cả ba game dùng liên kết Privacy Policy đang công bố trên Google Play. Đây là liên kết chính sách hiện có, chưa chuyển nội dung chính sách về thgame.vn.
 - Privacy Policy là bản nháp, chưa công bố. Cần soạn dựa trên dữ liệu, SDK quảng cáo/analytics và thực tế từng game trước khi công bố. Liên kết đến bản nháp trả về thông báo chưa công bố.
-- QR dùng `api.qrserver.com`: bên thứ ba nhận URL tải và yêu cầu mạng từ người xem; nếu dịch vụ gián đoạn, nút tải vẫn hoạt động. Font dùng Google Fonts, có font hệ thống dự phòng. Ảnh game do admin cung cấp URL. Cần phản ánh các dịch vụ thực tế trong chính sách website.
+- QR dùng `api.qrserver.com`: bên thứ ba nhận URL tải và yêu cầu mạng từ người xem; nếu dịch vụ gián đoạn, nút tải vẫn hoạt động. Font dùng Google Fonts, có font hệ thống dự phòng. Icon và ảnh chụp màn hình game dùng URL ảnh công khai từ Google Play. Cần phản ánh các dịch vụ thực tế trong chính sách website.
 - Các trang dùng hash route (`/#/game/slug`, `/#/page/slug`) để chạy trên Pages mà không cần server rewrite. Nếu cần URL riêng không có dấu # và SEO riêng cho từng game, có thể nâng cấp sang static generator.
 - Mỗi game đã công bố cũng có trang tĩnh tại `/<slug>/`; thẻ game trên trang chủ mở URL này. URL hash cũ vẫn hoạt động. Trang chính sách có thể truy cập qua `/<slug>/private.html` hoặc `/<slug>/private/` khi game đã có link Privacy Policy trong `content.json`.
+- Trang riêng của từng game hiển thị icon ứng dụng và slider ảnh chụp màn hình lấy từ danh sách `screenshots` trong `content.json`. Slider có thể vuốt ngang hoặc dùng nút điều hướng.
 - Để thêm HTML riêng cho một game, đặt file trong `game-pages/<slug>/`, ví dụ `game-pages/sudoku-arena/private.html` sẽ được đóng gói thành `/sudoku-arena/private.html`. Nội dung trong `game-pages/` được chép sau trang tự sinh, nên file riêng có thể thay thế trang cùng đường dẫn; cập nhật xong chạy lại build rồi xuất bản.
 - Build chỉ đóng gói file website; không đưa README, tests hoặc tài liệu nội bộ lên Pages.

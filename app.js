@@ -1,3 +1,5 @@
+import {initScreenshotGalleries} from './gallery.js';
+
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
 export function safeURL(value) {
   const s = String(value || '').trim();
@@ -10,6 +12,15 @@ let data;
 const arrow = '<span aria-hidden="true">↗</span>';
 const logo = '<img class="brand-logo" src="./assets/th-game-logo-v2.png" alt="TH Game — Chơi vui, khơi trí sáng tạo" width="260" height="104">';
 const art = '<div class="play-art"><img src="./assets/play-lab.svg" width="560" height="480" alt="" aria-hidden="true"><span class="art-note">Một chút tò mò, thật nhiều điều hay!</span></div>';
+
+export function screenshotGallery(g) {
+  const screenshots = (Array.isArray(g.screenshots) ? g.screenshots : []).filter(url => safeURL(url));
+  if (!screenshots.length) return '';
+  return `<section class="screenshot-gallery" data-screenshot-gallery aria-label="Ảnh chụp màn hình ${e(g.title)}">
+    <div class="screenshot-heading"><div><span class="eyebrow">TRẢI NGHIỆM BÊN TRONG</span><h2>Ảnh chụp màn hình</h2></div><div class="screenshot-controls"><button class="secondary" type="button" data-gallery-direction="-1" aria-label="Ảnh trước">←</button><button class="secondary" type="button" data-gallery-direction="1" aria-label="Ảnh tiếp theo">→</button></div></div>
+    <div class="screenshot-track" data-gallery-track tabindex="0" aria-label="Vuốt ngang để xem ảnh chụp ${e(g.title)}">${screenshots.map((url, index) => `<figure class="screenshot-slide"><img src="${e(safeURL(url))}" alt="Ảnh chụp màn hình ${e(g.title)}, ${index + 1}" width="526" height="296" loading="lazy"></figure>`).join('')}</div>
+  </section>`;
+}
 
 function nav() {
   const link = m => `<a href="${e(safeURL(m.url))}" ${location.hash === m.url.replace(/^\//, '') ? 'aria-current="page"' : ''}>${e(m.label)}</a>`;
@@ -57,7 +68,7 @@ function gamePage(id) {
   if (!g) return missing();
   document.title = g.title + ' · ' + data.settings.name;
   const links = [['Google Play', g.android], ['App Store', g.ios], ['Tải game / Chơi ngay', g.download]].filter(x => safeURL(x[1]));
-  return `<section class="detail wrap"><a class="back" href="#games">← Tất cả trò chơi</a><div class="detail-grid"><div class="detail-art tone-${data.games.indexOf(g) % 3}"><span class="detail-spark" aria-hidden="true">✳</span>${safeURL(g.image) ? `<img class="detail-image" src="${e(safeURL(g.image))}" alt="Biểu tượng ${e(g.title)}" width="300" height="300">` : art}<span class="detail-caption">MỘT TRÒ CHƠI TỪ ${e(data.settings.name.toUpperCase())}</span></div><div><span class="eyebrow">${e(g.platform || 'GAME')}</span><h1>${e(g.title)}</h1><span class="detail-category">${e(g.category || 'Khám phá & học hỏi')}</span><div class="prose">${formatText(g.description)}</div><div class="download-links">${links.map(([label, url]) => `<a class="button" target="_blank" rel="noopener noreferrer" href="${e(safeURL(url))}">Tải trên ${label} ${arrow}</a>`).join('') || '<p>Liên kết tải sẽ được cập nhật sớm.</p>'}</div>${links.length ? `<div class="qr"><img width="116" height="116" alt="QR tải ${e(g.title)}" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(new URL(safeURL(links[0][1]), location.href).href)}"><div><strong>Quét mã, mở cuộc vui</strong><p>Dùng camera điện thoại<br>để mở trang tải game.</p><small>QR được tạo bởi QRServer</small></div></div>` : ''}${safeURL(g.privacy) ? `<a class="text-link" href="${e(safeURL(g.privacy))}">Chính sách quyền riêng tư ${arrow}</a>` : ''}</div></div></section>`;
+  return `<section class="detail wrap"><a class="back" href="#games">← Tất cả trò chơi</a><div class="detail-grid"><div class="detail-art tone-${data.games.indexOf(g) % 3}"><span class="detail-spark" aria-hidden="true">✳</span>${safeURL(g.image) ? `<img class="detail-image" src="${e(safeURL(g.image))}" alt="Biểu tượng ${e(g.title)}" width="300" height="300">` : art}<span class="detail-caption">MỘT TRÒ CHƠI TỪ ${e(data.settings.name.toUpperCase())}</span></div><div><span class="eyebrow">${e(g.platform || 'GAME')}</span><h1>${e(g.title)}</h1><span class="detail-category">${e(g.category || 'Khám phá & học hỏi')}</span><div class="prose">${formatText(g.description)}</div><div class="download-links">${links.map(([label, url]) => `<a class="button" target="_blank" rel="noopener noreferrer" href="${e(safeURL(url))}">Tải trên ${label} ${arrow}</a>`).join('') || '<p>Liên kết tải sẽ được cập nhật sớm.</p>'}</div>${links.length ? `<div class="qr"><img width="116" height="116" alt="QR tải ${e(g.title)}" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(new URL(safeURL(links[0][1]), location.href).href)}"><div><strong>Quét mã, mở cuộc vui</strong><p>Dùng camera điện thoại<br>để mở trang tải game.</p><small>QR được tạo bởi QRServer</small></div></div>` : ''}${safeURL(g.privacy) ? `<a class="text-link" href="${e(safeURL(g.privacy))}">Chính sách quyền riêng tư ${arrow}</a>` : ''}</div></div>${screenshotGallery(g)}</section>`;
 }
 
 function render() {
@@ -72,7 +83,9 @@ function render() {
       document.title = (p?.title || 'Trang chưa công bố') + ' · ' + data.settings.name;
     } else body = home();
   } catch { body = missing(); }
-  document.querySelector('#app').innerHTML = `<div class="top-note">Một góc nhỏ cho những trí tò mò lớn. <span aria-hidden="true">✦</span></div><header class="wrap"><a class="brand" href="#">${logo}</a><nav aria-label="Menu chính">${nav()}</nav><a class="header-cta" href="#games">Cùng chơi nào ${arrow}</a></header><main>${body}</main><footer><div class="footer-top wrap"><div><a class="brand" href="#">${logo}</a><p>Từ niềm vui chơi, khơi mở những điều hay.</p></div><div class="footer-links"><a href="#games">Khám phá game</a><a href="#/page/about">Về TH Game</a>${data.pages.filter(p => p.published && p.id !== 'about').map(p => `<a href="#/page/${encodeURIComponent(p.id)}">${e(p.title)}</a>`).join('')}${data.settings.email ? `<a href="mailto:${e(data.settings.email)}">Liên hệ ${arrow}</a>` : ''}</div></div><div class="footer-bottom wrap"><span>© ${new Date().getFullYear()} ${e(data.settings.name)}. Một góc sáng tạo cá nhân.</span></div></footer>`;
+  const app = document.querySelector('#app');
+  app.innerHTML = `<div class="top-note">Một góc nhỏ cho những trí tò mò lớn. <span aria-hidden="true">✦</span></div><header class="wrap"><a class="brand" href="#">${logo}</a><nav aria-label="Menu chính">${nav()}</nav><a class="header-cta" href="#games">Cùng chơi nào ${arrow}</a></header><main>${body}</main><footer><div class="footer-top wrap"><div><a class="brand" href="#">${logo}</a><p>Từ niềm vui chơi, khơi mở những điều hay.</p></div><div class="footer-links"><a href="#games">Khám phá game</a><a href="#/page/about">Về TH Game</a>${data.pages.filter(p => p.published && p.id !== 'about').map(p => `<a href="#/page/${encodeURIComponent(p.id)}">${e(p.title)}</a>`).join('')}${data.settings.email ? `<a href="mailto:${e(data.settings.email)}">Liên hệ ${arrow}</a>` : ''}</div></div><div class="footer-bottom wrap"><span>© ${new Date().getFullYear()} ${e(data.settings.name)}. Một góc sáng tạo cá nhân.</span></div></footer>`;
+  initScreenshotGalleries(app);
   if (route === '#games') requestAnimationFrame(() => document.querySelector('#games')?.scrollIntoView());
   else window.scrollTo(0, 0);
 }
